@@ -1,0 +1,61 @@
+-- database
+create database dukaan;
+
+use dukaan;
+
+create table customers (
+	customer_id varchar(50) primary key,
+    fullname varchar(200),
+    address varchar(500),
+    city varchar(50),
+    pincode varchar(6),
+    phono_no varchar(10)
+);
+
+create table products (
+	product_id varchar(50) primary key,
+    product_title varchar(200),
+    price double,
+    quantity int
+);
+
+create table orders (
+	order_id varchar(50) primary key,
+    customer_id varchar(50),
+    product_id varchar(50),
+    quantity int,
+    order_date datetime,
+    foreign key(customer_id) references customers(customer_id),
+    foreign key(product_id) references products(product_id)
+);
+
+insert into customers values ("c1", "virat", "P-404 mumbai", "mumbai", "120040", "1234554321");
+insert into customers values ("c2", "dhoni", "P-300 delhi", "delhi", "220040", "1234564321");
+insert into customers values ("c3", "rohit", "P-204 mumbai", "mumbai", "320040", "1234574321");
+insert into customers values ("c4", "jadeja", "P-104 delhi", "delhi", "420040", "1234584321");
+insert into customers values ("c5", "sachin", "P-904 mumbai", "mumbai", "520040", "1234954321");
+
+insert into products values ("p1", "asus laptop i5", 50000, 10);
+insert into products values ("p2", "asus laptop i7", 80000, 10);
+insert into products values ("p3", "asus mouse", 1000, 10);
+insert into products values ("p4", "dell laptop i5", 55000, 10);
+insert into products values ("p5", "dell laptop i7", 77000, 10);
+insert into products values ("p6", "dell keyboard", 2000, 10);
+insert into products values ("p7", "dell mouse", 500, 10);
+insert into products values ("p8", "lenovo laptop i5", 59000, 10);
+insert into products values ("p9", "lenovo laptop i7", 79000, 10);
+insert into products values ("p10", "lenovo mouse", 5000, 10);
+insert into products values ("p11", "lenovo keyboard", 500, 10);
+
+insert into orders values ("o1", "c1", "p1", 1, now());
+insert into orders values ("o2", "c1", "p2", 1, now());
+insert into orders values ("o3", "c2", "p1", 1, now());
+insert into orders values ("o4", "c2", "p2", 1, now());
+insert into orders values ("o5", "c2", "p3", 1, now());
+insert into orders values ("o6", "c3", "p1", 1, now());
+insert into orders values ("o7", "c4", "p1", 1, now());
+insert into orders values ("o8", "c4", "p2", 1, now());
+insert into orders values ("o9", "c4", "p4", 1, now());
+insert into orders values ("o10", "c5", "p1", 1, now());
+insert into orders values ("o11", "c5", "p2", 1, now());
+insert into orders values ("o12", "c5", "p4", 1, now());
