@@ -59,3 +59,41 @@ insert into orders values ("o9", "c4", "p4", 1, now());
 insert into orders values ("o10", "c5", "p1", 1, now());
 insert into orders values ("o11", "c5", "p2", 1, now());
 insert into orders values ("o12", "c5", "p4", 1, now());
+
+
+-- -----------------------------------------------------
+use dukaan;
+
+select * from customers;
+select * from products;
+select * from orders;
+
+select ord.order_id, pro.product_title, ord.quantity, ord.order_date, ord.quantity*pro.price as amount 
+from orders as ord
+inner join products as pro
+on ord.product_id = pro.product_id;
+
+select ord.order_id, pro.product_title, ord.quantity, ord.order_date, ord.quantity*pro.price as amount 
+from orders as ord
+left join products as pro
+on ord.product_id = pro.product_id;
+
+select ord.order_id, pro.product_title, ord.quantity, ord.order_date, ord.quantity*pro.price as amount 
+from orders as ord
+right join products as pro
+on ord.product_id = pro.product_id;
+
+select ord.order_id, pro.product_title, ord.quantity, ord.order_date, ord.quantity*pro.price as amount 
+from products as pro
+right join orders as ord
+on ord.product_id = pro.product_id;
+
+-- find total quntity sale
+select pro.product_title, sum(ord.quantity) as total_quantity, sum(ord.quantity) * pro.price as amount 
+from orders as ord
+right join products as pro
+on ord.product_id = pro.product_id
+group by pro.product_id;
+
+select * from products where product_id != any (select product_id from orders);
+
