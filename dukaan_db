@@ -97,3 +97,15 @@ group by pro.product_id;
 
 select * from products where product_id != any (select product_id from orders);
 
+------------------------------------
+select o.order_id, p.product_title, o.quantity, o.order_date, p.price * o.quantity as total from orders as o
+inner join products as p
+on o.product_id = p.product_id
+where o.customer_id = "c2";
+
+select o.order_id, c.fullname, p.product_title, o.quantity, o.order_date, p.price * o.quantity as total 
+from orders as o
+inner join products as p
+on o.product_id = p.product_id
+inner join customers as c
+on o.customer_id = c.customer_id;
