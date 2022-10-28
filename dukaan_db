@@ -109,3 +109,20 @@ inner join products as p
 on o.product_id = p.product_id
 inner join customers as c
 on o.customer_id = c.customer_id;
+
+
+-- Left join
+select o.order_id, p.product_id, c.fullname, p.product_title, o.quantity, o.order_date, p.price * o.quantity as total 
+from orders as o
+left join products as p
+on o.product_id = p.product_id
+inner join customers as c
+on o.customer_id=c.customer_id;
+
+-- Right join
+select o.order_id, p.product_id, c.fullname, p.product_title, o.quantity, o.order_date, p.price * o.quantity as total 
+from orders as o
+right join products as p
+on o.product_id = p.product_id
+left join customers as c
+on o.customer_id=c.customer_id;
