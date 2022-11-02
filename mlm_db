@@ -1,0 +1,23 @@
+use mlm;
+
+create table persons (
+	person_id varchar(50) primary key,
+    name varchar(100),
+    phoneno varchar(10),
+    referer_id varchar(50) null,
+    foreign key(referer_id) references persons (person_id)
+);
+
+insert into persons values ("r1", "raju", "12345", null);
+insert into persons values ("b1", "babu", "54321", "r1");
+insert into persons values ("s1", "shyam", "12345", "r1");
+insert into persons values ("p1", "bandiya", "11111", "b1");
+
+select * from persons;
+
+-- find users referer name
+select p.name, ref.name as referer_name
+from persons as p
+left join
+persons as ref
+on p.referer_id = ref.person_id;
