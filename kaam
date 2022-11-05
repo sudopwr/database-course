@@ -1,0 +1,69 @@
+create database kaam;
+use kaam;
+
+create table employees (
+	employee_id varchar(50) primary key,
+    name varchar(50),
+    task_id varchar(50) null
+);
+
+create table tasks (
+	task_id varchar(50) primary key,
+    description varchar(200),
+    employee_id varchar(50) null
+);
+
+alter table employees add foreign key(task_id) references tasks(task_id);
+alter table tasks add foreign key(employee_id) references employees(employee_id);
+
+alter table employees drop foreign key employees_ibfk_1;
+alter table tasks drop foreign key tasks_ibfk_1;
+
+create table task_assigns (
+	employee_id varchar(50) null,
+    task_id varchar(50) null,
+    foreign key(employee_id) references employees(employee_id),
+    foreign key(task_id) references tasks(task_id)
+);
+
+insert into employees values ("e1", "anil", null);
+insert into employees values ("e2", "akshay", null);
+insert into employees values ("e3", "rajpal", null);
+
+insert into tasks values ("t1", "task 1", null);
+insert into tasks values ("t2", "task 2", null);
+insert into tasks values ("t3", "task 3", "e3");
+
+insert into task_assigns values ("e1", null);
+insert into task_assigns values ("e2", null);
+insert into task_assigns values ("e4", null);
+insert into task_assigns values ("e5", null);
+
+insert into task_assigns values (null, "t1");
+insert into task_assigns values (null, "t2");
+insert into task_assigns values (null, "t4");
+insert into task_assigns values (null, "t5");
+
+insert into task_assigns values ("e3", "t3");
+
+select * from employees;
+
+select e.employee_id, e.name, t.task_id, t.description
+from task_assigns as ta
+left join employees as e
+on ta.employee_id=e.employee_id
+left join tasks as t
+on ta.task_id=t.task_id;
+
+select * from task_assigns;
+delete from task_assigns;
+delete from tasks;
+delete from employees;
+drop table task_assigns;
+drop table tasks;
+drop table employees;
+
+select e.name, t.description 
+from employees as e
+left join tasks as t
+on e.employee_id=t.employee_id;
