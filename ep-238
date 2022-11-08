@@ -1,0 +1,88 @@
+create database zomato;
+
+use zomato;
+
+create table users (
+	user_id varchar(50) primary key,
+    name varchar(50),
+    phoneno varchar(10)
+);
+
+create table orders (
+	order_id varchar(50) primary key,
+    restaurant_name varchar(50),
+    dish_title varchar(50),
+    quantity int,
+    user_id varchar(50) unique,
+    foreign key(user_id) references users(user_id)
+);
+
+insert into users values ("u1", "raju", "12345");
+insert into users values ("u2", "babu", "12345");
+select * from users;
+
+insert into orders values ("o1", "raju dhaba", "samosa", 2, "u1");
+insert into orders values ("o2", "shyam dhaba", "kachori", 1, "u1");
+select * from orders;
+
+-- -------------------------------------------------------------------
+create database instagram;
+
+use instagram;
+
+CREATE TABLE `users` (
+  `user_id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `name` varchar(100) DEFAULT NULL,
+  `bio` varchar(200) DEFAULT NULL
+);
+
+CREATE TABLE `posts` (
+  `post_id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `image` varchar(100) DEFAULT NULL,
+  `caption` varchar(1000) DEFAULT NULL,
+  `user_id` int DEFAULT NULL,
+  FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
+);
+
+
+-- --------------------------------------------------------
+create database kaam;
+
+use kaam;
+
+create table employees (
+	employee_id varchar(50) primary key,
+    name varchar(50)
+);
+
+create table tasks (
+	task_id varchar(50) primary key,
+    description varchar(200)
+);
+
+create table task_assigns (
+	employee_id varchar(50) null,
+    task_id varchar(50) null,
+    foreign key(employee_id) references employees(employee_id),
+    foreign key(task_id) references tasks(task_id)
+);
+
+insert into employees values ("e1", "anil");
+insert into employees values ("e2", "akshay");
+insert into employees values ("e3", "rajpal");
+
+insert into tasks values ("t1", "task 1");
+insert into tasks values ("t2", "task 2");
+insert into tasks values ("t3", "task 3");
+
+insert into task_assigns values ("e1", "t1");
+insert into task_assigns values ("e1", "t2");
+insert into task_assigns values ("e2", "t1");
+insert into task_assigns values ("e2", "t2");
+
+select e.name, t.description
+from task_assigns as ta
+inner join employees as e
+on ta.employee_id = e.employee_id
+inner join tasks as t
+on ta.task_id = t.task_id;
