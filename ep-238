@@ -25,27 +25,39 @@ insert into orders values ("o1", "raju dhaba", "samosa", 2, "u1");
 insert into orders values ("o2", "shyam dhaba", "kachori", 1, "u1");
 select * from orders;
 
--- -------------------------------------------------------------------
+-- -------------------------------------------
+
 create database instagram;
 
 use instagram;
 
+-- 1 to M users to posts
+-- M to 1 posts to users
+
 CREATE TABLE `users` (
-  `user_id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `name` varchar(100) DEFAULT NULL,
-  `bio` varchar(200) DEFAULT NULL
+  `user_id` varchar(50) PRIMARY KEY,
+  `name` varchar(100),
+  `bio` varchar(200)
 );
 
 CREATE TABLE `posts` (
-  `post_id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `image` varchar(100) DEFAULT NULL,
-  `caption` varchar(1000) DEFAULT NULL,
-  `user_id` int DEFAULT NULL,
+  `post_id` varchar(50) PRIMARY KEY,
+  `image` varchar(100),
+  `caption` varchar(1000),
+  `user_id` varchar(50),
   FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 );
 
+insert into users values ("u1", "raju", "tech");
+insert into users values ("u2", "shyam", "tech");
+select * from users;
 
--- --------------------------------------------------------
+insert into posts values ("p1", "image 1", "caption 1", "u1");
+insert into posts values ("p2", "image 2", "caption 2", "u1");
+select * from posts;
+
+-- ----------------------------------
+
 create database kaam;
 
 use kaam;
